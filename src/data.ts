@@ -5,11 +5,11 @@ export const initialStudent: StudentProfile = {
   name: 'Ahmad Bin Zulkifli',
   avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBWurBxNfeiTuxyzobsH57ooy4wQg5Bm3TRg0xoJEj74FVZ3sTbAu9xt7at8VhU-8KeHHHKK63byXwzXyDByea9jb1uLe3z6WbUlUpr8py84WtZjfqQjRm3Hkx5Wqf45y2ddgIbpnucvpNdHlnNU_8YIAeaYJXXDIdghR_YAu2nRuUqA1E8r7A3dgc2CNewoMypTmB8316wyq6NvgKFizjOd8kjpWPRuIjRIMmf7jPbkLv0ahVxdDh_KNt26vK7Y4fyRiAn_dcpEGo',
   role: 'Pelajar Tahun 2 - Penyejukan',
-  overallProgress: 45,
-  completedModules: 3,
-  totalModules: 6,
-  badgesCount: 2,
-  learningHours: 12,
+  overallProgress: 57,
+  completedModules: 4,
+  totalModules: 7,
+  badgesCount: 3,
+  learningHours: 15,
 };
 
 export const modulesData: ModuleItem[] = [
@@ -62,15 +62,29 @@ export const modulesData: ModuleItem[] = [
     level: 'PERTENGAHAN',
     duration: '75 min',
     topicsCount: 7,
-    progress: 0,
-    status: 'completed', // allow access for interactive lab wiring
+    progress: 100,
+    status: 'completed',
     prerequisite: 'SELESAIKAN MODUL 03',
     icon: 'bolt',
     targetScreen: 'wiring'
   },
   {
-    id: 'mod-5',
+    id: 'mod-dol',
     moduleNumber: 'MODUL 05',
+    title: 'Litar Kawalan Penghidup Talian Terus (DOL)',
+    description: 'Simulasi interaktif litar skematik & pendawaian Penghidup Talian Terus (Direct-On-Line Starter) mengandungi PB1 (Henti), PB2 (Hidup), GBL (Overload), Contact M, LP1 (Jalan), dan LP2 (Trip).',
+    level: 'PERTENGAHAN',
+    duration: '80 min',
+    topicsCount: 8,
+    progress: 100,
+    status: 'completed',
+    imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBg46kN5d2Bvd9-Gi3NrmPcO6Ec7LqraREx624-ZtoxTqZ7dCK95RlXvKiwsD1_lr5rk7Z2lXToh50KHyAgBJypF8dKNCkExEWKClfDIo9qHrfUg30N8H9VCeOhJStL5caXkoTG1OMt6TOn0sEf2BIPrM3JI8P0ahF-PIZIyU2a1mey2oI3tT6BXIN5atOuOWeeMvCesASKJIB0socqMibxt1F1D4XASs13D_d1ezsnoeEq3i6qGKPouZfwme2uMc69LU4RY--YXdE',
+    icon: 'power_settings_new',
+    targetScreen: 'dol-starter'
+  },
+  {
+    id: 'mod-5',
+    moduleNumber: 'MODUL 06',
     title: 'Split Unit Air Conditioner',
     description: 'Prosedur pemasangan unit dalam (indoor) dan unit luar (outdoor) serta pengurusan bahan pendingin.',
     level: 'LANJUTAN',
@@ -78,14 +92,14 @@ export const modulesData: ModuleItem[] = [
     topicsCount: 9,
     progress: 0,
     status: 'completed',
-    prerequisite: 'SELESAIKAN MODUL 04',
+    prerequisite: 'SELESAIKAN MODUL 05',
     icon: 'settings_input_component',
     targetScreen: 'troubleshooting'
   },
   {
     id: 'mod-6',
-    moduleNumber: 'MODUL 06',
-    title: 'Troubleshooting',
+    moduleNumber: 'MODUL 07',
+    title: 'Troubleshooting & Multimeter',
     description: 'Teknik mengesan kerosakan mekanikal dan elektrikal serta langkah pembaikan yang selamat.',
     level: 'LANJUTAN',
     duration: '120 min',

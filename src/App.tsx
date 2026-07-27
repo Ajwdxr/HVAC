@@ -10,6 +10,7 @@ import { ModuleListScreen } from './components/ModuleListScreen';
 import { SimulationScreen } from './components/SimulationScreen';
 import { TroubleshootingScreen } from './components/TroubleshootingScreen';
 import { WiringExerciseScreen } from './components/WiringExerciseScreen';
+import { DolStarterScreen } from './components/DolStarterScreen';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<ScreenView>('dashboard');
@@ -28,6 +29,8 @@ export default function App() {
         return 'Troubleshooting & Multimeter';
       case 'wiring':
         return 'Modul 4: Litar Kawalan (Latihan Pendawaian)';
+      case 'dol-starter':
+        return 'Modul 5: Litar Kawalan Penghidup Talian Terus (DOL)';
       default:
         return 'Pusat Interaktif';
     }
@@ -78,6 +81,10 @@ export default function App() {
 
         {currentScreen === 'wiring' && (
           <WiringExerciseScreen onNavigate={(s) => setCurrentScreen(s)} />
+        )}
+
+        {currentScreen === 'dol-starter' && (
+          <DolStarterScreen onNavigate={(s) => setCurrentScreen(s)} />
         )}
       </div>
 

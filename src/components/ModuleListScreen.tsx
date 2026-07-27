@@ -25,11 +25,11 @@ export const ModuleListScreen: React.FC<ModuleListScreenProps> = ({
 
         <div className="bg-[#f2f3fc] p-4 rounded-xl border border-[#c2c6d4] flex items-center gap-4 w-fit">
           <div className="w-12 h-12 rounded-full border-4 border-[#003f87] border-t-[#c2c6d4] flex items-center justify-center bg-white shadow-sm">
-            <span className="font-mono-tech text-[#003f87] font-bold text-[14px]">45%</span>
+            <span className="font-mono-tech text-[#003f87] font-bold text-[14px]">57%</span>
           </div>
           <div>
             <div className="text-[11px] font-bold text-[#424752] uppercase">Tahap Keseluruhan</div>
-            <div className="text-[14px] font-semibold text-[#191c21]">3/6 Modul Selesai</div>
+            <div className="text-[14px] font-semibold text-[#191c21]">4/7 Modul Selesai</div>
           </div>
         </div>
       </div>
