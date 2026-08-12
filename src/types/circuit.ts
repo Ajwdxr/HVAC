@@ -5,6 +5,7 @@ export type ComponentType =
   | "OVERLOAD"
   | "PUSH_BUTTON"
   | "LAMP"
+  | "LED"
   | "MOTOR"
   | "TERMINAL_BLOCK"
   | "POWER_SOURCE";

@@ -7,73 +7,91 @@ interface LampProps {
 }
 
 export const Lamp: React.FC<LampProps> = ({ component, lit }) => {
-  const { width = 75, height = 100 } = component;
+  const { width = 80, height = 105 } = component;
 
-  const getLampColor = () => {
-    if (component.id.includes("power")) return "#22c55e"; // Green
-    if (component.id.includes("star")) return "#eab308";  // Yellow
-    if (component.id.includes("delta")) return "#3b82f6"; // Blue
-    return "#ef4444"; // Fault Red
+  const getLedColor = () => {
+    if (component.id.includes("power")) return "#22c55e"; // Green LED
+    if (component.id.includes("star")) return "#eab308";  // Yellow LED
+    if (component.id.includes("delta")) return "#3b82f6"; // Blue LED
+    return "#ef4444"; // Fault Red LED
   };
 
-  const lampColor = getLampColor();
+  const ledColor = getLedColor();
 
   return (
     <g transform={`translate(${component.position.x}, ${component.position.y})`}>
-      {/* Outer Base Casing */}
+      {/* Base Casing Frame */}
       <rect
         width={width}
         height={height}
-        rx={6}
-        fill="#1e293b"
-        stroke="#475569"
-        strokeWidth={1.5}
-        className="drop-shadow"
+        rx={8}
+        fill="#12141c"
+        stroke={lit ? ledColor : "#334155"}
+        strokeWidth={lit ? 2 : 1.5}
+        className="drop-shadow-md transition-colors duration-300"
       />
 
       {/* Top Header Title Banner */}
       <path
-        d={`M 0 6 A 6 6 0 0 1 6 0 L ${width - 6} 0 A 6 6 0 0 1 ${width} 6 L ${width} 20 L 0 20 Z`}
-        fill="#0f172a"
+        d={`M 0 8 A 8 8 0 0 1 8 0 L ${width - 8} 0 A 8 8 0 0 1 ${width} 8 L ${width} 24 L 0 24 Z`}
+        fill="#0a0b0e"
       />
       <text
         x={width / 2}
-        y={14}
+        y={16}
         textAnchor="middle"
-        fontSize={9}
+        fontSize={10}
         fontWeight="bold"
-        fill="#38bdf8"
+        fill="#f59e0b"
         className="font-mono uppercase tracking-wider"
       >
         {component.label}
       </text>
-      <line x1={0} y1={20} x2={width} y2={20} stroke="#334155" strokeWidth={1} />
+      <line x1={0} y1={24} x2={width} y2={24} stroke="#334155" strokeWidth={1} />
 
-      {/* Glow Halo Lens Effect */}
+      {/* Glow Halo Lens Aura Effect */}
       {lit && (
         <circle
           cx={width / 2}
-          cy={62}
-          r={18}
-          fill={lampColor}
+          cy={64}
+          r={22}
+          fill={ledColor}
           opacity={0.35}
           className="animate-pulse"
         />
       )}
 
-      {/* Main Glass Lens */}
+      {/* Outer LED Bezel Ring */}
       <circle
         cx={width / 2}
-        cy={62}
-        r={13}
-        fill={lit ? lampColor : "#334155"}
-        stroke={lit ? "#ffffff" : "#64748b"}
+        cy={64}
+        r={16}
+        fill="#0a0b0e"
+        stroke="#334155"
+        strokeWidth={1.5}
+      />
+
+      {/* Main Glowing LED Lens Bulb */}
+      <circle
+        cx={width / 2}
+        cy={64}
+        r={12}
+        fill={lit ? ledColor : "#1e293b"}
+        stroke={lit ? "#ffffff" : "#475569"}
         strokeWidth={lit ? 2 : 1}
         className="transition-colors duration-300"
       />
 
-      {/* Internal Filament Highlight */}
-      <circle cx={width / 2 - 3} cy={59} r={3.5} fill="#ffffff" opacity={lit ? 0.85 : 0.2} />
+      {/* Internal LED Diode Reflector Highlight */}
+      <circle cx={width / 2 - 3} cy={61} r={3.5} fill="#ffffff" opacity={lit ? 0.85 : 0.15} />
+
+      {/* LED Cathode / Anode (+ / -) Markings */}
+      <text x={10} y={40} fontSize={8} fill="#94a3b8" fontWeight="bold" className="font-mono">
+        +
+      </text>
+      <text x={10} y={88} fontSize={8} fill="#94a3b8" fontWeight="bold" className="font-mono">
+        -
+      </text>
     </g>
   );
 };

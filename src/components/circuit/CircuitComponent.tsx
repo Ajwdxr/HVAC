@@ -78,6 +78,7 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
         );
       }
 
+      case "LED":
       case "LAMP": {
         let isLit = false;
         if (component.id.includes("power")) isLit = state.lamps.power;
