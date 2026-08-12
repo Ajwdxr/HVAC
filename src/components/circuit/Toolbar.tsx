@@ -27,14 +27,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   onSetSpeed,
 }) => {
   return (
-    <div className="bg-[#1e293b] border border-[#334155] rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg select-none">
+    <div className="bg-[#0f1016] border border-[#f59e0b]/30 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg select-none">
       {/* Mode Switcher Tabs */}
-      <div className="flex items-center bg-[#0f172a] p-1 rounded-lg border border-slate-700">
+      <div className="flex items-center bg-[#090a0f] p-1 rounded-lg border border-slate-800">
         <button
           onClick={() => onSetMode("DESIGN")}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold font-mono transition ${
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-black font-mono transition ${
             mode === "DESIGN"
-              ? "bg-amber-500 text-slate-950 shadow"
+              ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/20"
               : "text-slate-400 hover:text-slate-200"
           }`}
         >
@@ -44,12 +44,12 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
         <button
           onClick={() => onSetMode("SIMULATION")}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold font-mono transition ${
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-black font-mono transition ${
             mode === "SIMULATION"
-              ? "bg-emerald-500 text-slate-950 shadow"
+              ? "bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20"
               : isValid
-              ? "bg-slate-800 text-emerald-400 hover:bg-slate-700"
-              : "bg-slate-800/80 text-amber-300 hover:bg-slate-700"
+              ? "bg-slate-900 text-emerald-400 hover:bg-slate-800"
+              : "bg-slate-900 text-amber-300 hover:bg-slate-800 border border-amber-500/30"
           }`}
           title={
             !isValid
@@ -67,17 +67,17 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         {/* Auto-Connect Wires Button for Instant Simulation */}
         <button
           onClick={onAutoConnect}
-          className="flex items-center gap-1 bg-emerald-600/30 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition shadow-sm"
+          className="flex items-center gap-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/50 px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition shadow-sm"
           title="Sambung semua wayar litar secara automatik 100%"
         >
           <span className="material-symbols-outlined text-[16px]">bolt</span>
-          AUTO-WIRE (SAMBUNG 100%)
+          AUTO-WIRE (100%)
         </button>
 
         {/* Reset Wires */}
         <button
           onClick={onReset}
-          className="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition"
+          className="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition"
         >
           <span className="material-symbols-outlined text-[16px]">restart_alt</span>
           RESET LITAR
@@ -96,25 +96,27 @@ export const Toolbar: React.FC<ToolbarProps> = ({
         {/* Hint Request */}
         <button
           onClick={onRequestHint}
-          className="flex items-center gap-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition"
+          className="flex items-center gap-1 bg-slate-900 hover:bg-slate-800 text-amber-400 border border-slate-700 px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition"
         >
-          <span className="material-symbols-outlined text-[16px]">lightbulb</span>
-          PETUNJUK (HINT)
+          <span className="material-symbols-outlined text-[16px] text-amber-400">
+            lightbulb
+          </span>
+          PETUNJUK
         </button>
       </div>
 
       {/* Speed Controls (0.5x, 1x, 2x, 5x) */}
-      <div className="flex items-center gap-1.5 bg-[#0f172a] px-2 py-1 rounded-lg border border-slate-700">
-        <span className="text-[10px] text-slate-400 font-mono font-bold uppercase pr-1">
+      <div className="flex items-center gap-1.5 bg-[#090a0f] px-2.5 py-1 rounded-lg border border-slate-800">
+        <span className="text-[10px] text-amber-400/90 font-mono font-bold uppercase pr-1">
           SPEED:
         </span>
         {[0.5, 1, 2, 5].map((spd) => (
           <button
             key={spd}
             onClick={() => onSetSpeed(spd)}
-            className={`px-2 py-0.5 text-xs font-bold font-mono rounded transition ${
+            className={`px-2 py-0.5 text-xs font-black font-mono rounded transition ${
               speedMultiplier === spd
-                ? "bg-blue-600 text-white"
+                ? "bg-amber-500 text-slate-950"
                 : "text-slate-400 hover:text-slate-200"
             }`}
           >
