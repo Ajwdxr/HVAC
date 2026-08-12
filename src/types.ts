@@ -5,7 +5,8 @@ export type ScreenView =
   | 'simulation' 
   | 'troubleshooting' 
   | 'wiring'
-  | 'dol-starter';
+  | 'dol-starter'
+  | 'star-delta';
 
 export interface StudentProfile {
   id: string;

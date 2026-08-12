@@ -83,6 +83,19 @@ export const modulesData: ModuleItem[] = [
     targetScreen: 'dol-starter'
   },
   {
+    id: 'mod-stardelta',
+    moduleNumber: 'MODUL 05B',
+    title: 'Litar Penghidup Motor Bintang-Delta (Star-Delta Starter)',
+    description: 'Simulasi interaktif litar kuasa & kawalan Penghidup Bintang-Delta 3-fasa mengandungi MCB 3P, KM1 (Utama), KM2 (Bintang), KM3 (Delta), Timer 5s, OLR, dan Motor 3-fasa 6-punang.',
+    level: 'LANJUTAN',
+    duration: '90 min',
+    topicsCount: 10,
+    progress: 100,
+    status: 'completed',
+    icon: 'electric_bolt',
+    targetScreen: 'star-delta'
+  },
+  {
     id: 'mod-5',
     moduleNumber: 'MODUL 06',
     title: 'Split Unit Air Conditioner',

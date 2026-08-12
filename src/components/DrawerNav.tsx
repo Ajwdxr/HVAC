@@ -82,6 +82,17 @@ export const DrawerNav: React.FC<DrawerNavProps> = ({
 
           <button
             onClick={() => {
+              onNavigate('star-delta');
+              onClose();
+            }}
+            className="w-full flex items-center gap-3.5 px-4 py-3 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left font-medium"
+          >
+            <span className="material-symbols-outlined">electric_bolt</span>
+            <span className="text-[15px]">Litar Star-Delta Starter</span>
+          </button>
+
+          <button
+            onClick={() => {
               onNavigate('simulation');
               onClose();
             }}

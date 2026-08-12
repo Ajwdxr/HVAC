@@ -11,6 +11,7 @@ import { SimulationScreen } from './components/SimulationScreen';
 import { TroubleshootingScreen } from './components/TroubleshootingScreen';
 import { WiringExerciseScreen } from './components/WiringExerciseScreen';
 import { DolStarterScreen } from './components/DolStarterScreen';
+import { StarDeltaSimulatorScreen } from './components/StarDeltaSimulatorScreen';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<ScreenView>('dashboard');
@@ -31,6 +32,8 @@ export default function App() {
         return 'Modul 4: Litar Kawalan (Latihan Pendawaian)';
       case 'dol-starter':
         return 'Modul 5: Litar Kawalan Penghidup Talian Terus (DOL)';
+      case 'star-delta':
+        return 'Modul 5B: Litar Penghidup Bintang-Delta (Star-Delta)';
       default:
         return 'Pusat Interaktif';
     }
@@ -85,6 +88,10 @@ export default function App() {
 
         {currentScreen === 'dol-starter' && (
           <DolStarterScreen onNavigate={(s) => setCurrentScreen(s)} />
+        )}
+
+        {currentScreen === 'star-delta' && (
+          <StarDeltaSimulatorScreen onNavigate={(s) => setCurrentScreen(s)} />
         )}
       </div>
 
