@@ -7,7 +7,7 @@ interface LampProps {
 }
 
 export const Lamp: React.FC<LampProps> = ({ component, lit }) => {
-  const { width = 60, height = 80 } = component;
+  const { width = 75, height = 100 } = component;
 
   const getLampColor = () => {
     if (component.id.includes("power")) return "#22c55e"; // Green
@@ -20,7 +20,7 @@ export const Lamp: React.FC<LampProps> = ({ component, lit }) => {
 
   return (
     <g transform={`translate(${component.position.x}, ${component.position.y})`}>
-      {/* Base Casing */}
+      {/* Outer Base Casing */}
       <rect
         width={width}
         height={height}
@@ -31,27 +31,32 @@ export const Lamp: React.FC<LampProps> = ({ component, lit }) => {
         className="drop-shadow"
       />
 
-      {/* Label */}
+      {/* Top Header Title Banner */}
+      <path
+        d={`M 0 6 A 6 6 0 0 1 6 0 L ${width - 6} 0 A 6 6 0 0 1 ${width} 6 L ${width} 20 L 0 20 Z`}
+        fill="#0f172a"
+      />
       <text
         x={width / 2}
-        y={15}
+        y={14}
         textAnchor="middle"
-        fontSize={8}
+        fontSize={9}
         fontWeight="bold"
-        fill="#cbd5e1"
-        className="font-mono uppercase"
+        fill="#38bdf8"
+        className="font-mono uppercase tracking-wider"
       >
-        {component.label.replace("LP: ", "")}
+        {component.label}
       </text>
+      <line x1={0} y1={20} x2={width} y2={20} stroke="#334155" strokeWidth={1} />
 
       {/* Glow Halo Lens Effect */}
       {lit && (
         <circle
           cx={width / 2}
-          cy={42}
-          r={20}
+          cy={62}
+          r={18}
           fill={lampColor}
-          opacity={0.3}
+          opacity={0.35}
           className="animate-pulse"
         />
       )}
@@ -59,16 +64,16 @@ export const Lamp: React.FC<LampProps> = ({ component, lit }) => {
       {/* Main Glass Lens */}
       <circle
         cx={width / 2}
-        cy={42}
-        r={14}
+        cy={62}
+        r={13}
         fill={lit ? lampColor : "#334155"}
         stroke={lit ? "#ffffff" : "#64748b"}
         strokeWidth={lit ? 2 : 1}
         className="transition-colors duration-300"
       />
 
-      {/* Internal Filament Reflector */}
-      <circle cx={width / 2 - 4} cy={38} r={4} fill="#ffffff" opacity={lit ? 0.8 : 0.2} />
+      {/* Internal Filament Highlight */}
+      <circle cx={width / 2 - 3} cy={59} r={3.5} fill="#ffffff" opacity={lit ? 0.85 : 0.2} />
     </g>
   );
 };

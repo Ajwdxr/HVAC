@@ -28,12 +28,15 @@ export const Terminal: React.FC<TerminalProps> = ({
     if (terminal.polarity === "L1") return "#ef4444"; // Red
     if (terminal.polarity === "L2") return "#eab308"; // Yellow
     if (terminal.polarity === "L3") return "#3b82f6"; // Blue
-    if (terminal.polarity === "N") return "#06b6d4";  // NeutralCyan
+    if (terminal.polarity === "N") return "#06b6d4";  // Neutral Cyan
     if (terminal.type === "COIL") return "#a855f7";   // Purple
     return "#64748b"; // Slate
   };
 
   const strokeColor = getTerminalColor();
+
+  // Determine text offset: top terminals show text above screw, bottom terminals show text below screw
+  const textYOffset = terminal.y < 60 ? -10 : 15;
 
   return (
     <g
@@ -73,11 +76,11 @@ export const Terminal: React.FC<TerminalProps> = ({
       {/* Terminal Text Label */}
       <text
         x={0}
-        y={terminal.y < 30 ? -12 : 18}
+        y={textYOffset}
         textAnchor="middle"
         fontSize={10}
         fontWeight="bold"
-        fill="#cbd5e1"
+        fill="#e2e8f0"
         className="pointer-events-none drop-shadow-md font-mono"
       >
         {terminal.name}

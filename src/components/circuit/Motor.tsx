@@ -14,10 +14,10 @@ export const Motor: React.FC<MotorProps> = ({
   mode,
   speed,
 }) => {
-  const { width = 150, height = 160 } = component;
+  const { width = 170, height = 185 } = component;
   const cx = width / 2;
-  const cy = height / 2 + 10;
-  const radius = 42;
+  const cy = 105;
+  const radius = 38;
 
   // Rotation animation duration based on speed
   const animDuration = speed > 0 ? `${(100 / speed) * 0.8}s` : "0s";
@@ -31,7 +31,7 @@ export const Motor: React.FC<MotorProps> = ({
 
   return (
     <g transform={`translate(${component.position.x}, ${component.position.y})`}>
-      {/* Outer Industrial Enclosure Frame */}
+      {/* Outer Industrial Housing Frame */}
       <rect
         width={width}
         height={height}
@@ -42,24 +42,29 @@ export const Motor: React.FC<MotorProps> = ({
         className="drop-shadow-lg"
       />
 
-      {/* Header Title */}
+      {/* Top Header Title Banner */}
+      <path
+        d={`M 0 10 A 10 10 0 0 1 10 0 L ${width - 10} 0 A 10 10 0 0 1 ${width} 10 L ${width} 24 L 0 24 Z`}
+        fill="#1e293b"
+      />
       <text
         x={width / 2}
         y={16}
         textAnchor="middle"
         fontSize={11}
         fontWeight="bold"
-        fill="#f8fafc"
+        fill="#38bdf8"
         className="font-mono uppercase tracking-wider"
       >
         {component.label}
       </text>
+      <line x1={0} y1={24} x2={width} y2={24} stroke="#334155" strokeWidth={1} />
 
-      {/* Motor Circular Stator Housing */}
+      {/* Motor Stator Housing Ring */}
       <circle
         cx={cx}
         cy={cy}
-        r={radius + 6}
+        r={radius + 5}
         fill="#1e293b"
         stroke={getStatusColor()}
         strokeWidth={3}
@@ -70,30 +75,28 @@ export const Motor: React.FC<MotorProps> = ({
       <g
         transform={`translate(${cx}, ${cy})`}
         className={running ? "animate-spin" : ""}
-        style={{
-          animationDuration: animDuration,
-        }}
+        style={{ animationDuration: animDuration }}
       >
         <circle r={radius} fill="#334155" stroke="#475569" strokeWidth={2} />
 
-        {/* Rotor Fan Blades / Winding Lines */}
-        <line x1={-radius + 8} y1={0} x2={radius - 8} y2={0} stroke="#94a3b8" strokeWidth={3} />
-        <line x1={0} y1={-radius + 8} x2={0} y2={radius - 8} stroke="#94a3b8" strokeWidth={3} />
-        <line x1={-25} y1={-25} x2={25} y2={25} stroke="#64748b" strokeWidth={2} />
-        <line x1={-25} y1={25} x2={25} y2={-25} stroke="#64748b" strokeWidth={2} />
+        {/* Fan Blade Winding Lines */}
+        <line x1={-radius + 6} y1={0} x2={radius - 6} y2={0} stroke="#94a3b8" strokeWidth={3} />
+        <line x1={0} y1={-radius + 6} x2={0} y2={radius - 6} stroke="#94a3b8" strokeWidth={3} />
+        <line x1={-22} y1={-22} x2={22} y2={22} stroke="#64748b" strokeWidth={2} />
+        <line x1={-22} y1={22} x2={22} y2={-22} stroke="#64748b" strokeWidth={2} />
 
         {/* Center Shaft Nut */}
-        <circle r={10} fill="#f1f5f9" stroke="#0f172a" strokeWidth={2} />
-        <circle r={4} fill="#0f172a" />
+        <circle r={9} fill="#f1f5f9" stroke="#0f172a" strokeWidth={2} />
+        <circle r={3.5} fill="#0f172a" />
       </g>
 
       {/* Mode Badge (STAR / DELTA / STOPPED) */}
       <rect
         x={cx - 35}
-        y={cy - 12}
+        y={cy - 11}
         width={70}
-        height={24}
-        rx={6}
+        height={22}
+        rx={5}
         fill={getStatusColor()}
         className="opacity-90"
       />
@@ -101,7 +104,7 @@ export const Motor: React.FC<MotorProps> = ({
         x={cx}
         y={cy + 4}
         textAnchor="middle"
-        fontSize={11}
+        fontSize={10}
         fontWeight="bold"
         fill="#ffffff"
         className="font-mono tracking-wider"
@@ -109,16 +112,16 @@ export const Motor: React.FC<MotorProps> = ({
         {mode}
       </text>
 
-      {/* Speed & Status Text Footer */}
+      {/* Speed Footer Text */}
       <text
         x={width / 2}
-        y={height - 8}
+        y={150}
         textAnchor="middle"
         fontSize={10}
         fill="#94a3b8"
-        className="font-mono"
+        className="font-mono font-bold"
       >
-        {running ? `${Math.round(speed * 14.5)} RPM (${mode})` : "MOTOR STOPPED"}
+        {running ? `${Math.round(speed * 14.5)} RPM` : "MOTOR STOPPED"}
       </text>
     </g>
   );

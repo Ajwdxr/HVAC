@@ -87,9 +87,10 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
       }
 
       case "MCB": {
-        const { width = 110, height = 120 } = component;
+        const { width = 120, height = 150 } = component;
         return (
           <g transform={`translate(${component.position.x}, ${component.position.y})`}>
+            {/* Base Housing */}
             <rect
               width={width}
               height={height}
@@ -99,21 +100,28 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
               strokeWidth={2}
               className="drop-shadow-md"
             />
+            {/* Top Header Banner */}
+            <path
+              d={`M 0 8 A 8 8 0 0 1 8 0 L ${width - 8} 0 A 8 8 0 0 1 ${width} 8 L ${width} 24 L 0 24 Z`}
+              fill="#0f172a"
+            />
             <text
               x={width / 2}
-              y={18}
+              y={16}
               textAnchor="middle"
               fontSize={11}
               fontWeight="bold"
-              fill="#f8fafc"
+              fill="#38bdf8"
               className="font-mono tracking-wide"
             >
               {component.label}
             </text>
-            {/* Toggle Lever Handle */}
+            <line x1={0} y1={24} x2={width} y2={24} stroke="#334155" strokeWidth={1} />
+
+            {/* Toggle Lever Housing */}
             <rect
               x={width / 2 - 15}
-              y={38}
+              y={65}
               width={30}
               height={45}
               rx={4}
@@ -122,7 +130,7 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
             />
             <rect
               x={width / 2 - 10}
-              y={state.mcb ? 42 : 60}
+              y={state.mcb ? 69 : 87}
               width={20}
               height={20}
               rx={3}
@@ -131,7 +139,7 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
             />
             <text
               x={width / 2}
-              y={state.mcb ? 55 : 73}
+              y={state.mcb ? 82 : 100}
               textAnchor="middle"
               fontSize={8}
               fontWeight="bold"
@@ -145,9 +153,10 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
       }
 
       case "OVERLOAD": {
-        const { width = 130, height = 120 } = component;
+        const { width = 140, height = 150 } = component;
         return (
           <g transform={`translate(${component.position.x}, ${component.position.y})`}>
+            {/* Base Housing */}
             <rect
               width={width}
               height={height}
@@ -157,24 +166,33 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
               strokeWidth={2}
               className="drop-shadow-md"
             />
+            {/* Top Header Banner */}
+            <path
+              d={`M 0 8 A 8 8 0 0 1 8 0 L ${width - 8} 0 A 8 8 0 0 1 ${width} 8 L ${width} 24 L 0 24 Z`}
+              fill="#0f172a"
+            />
             <text
-              x={width / 2 - 10}
-              y={18}
+              x={width / 2}
+              y={16}
               textAnchor="middle"
               fontSize={11}
               fontWeight="bold"
-              fill="#f8fafc"
+              fill="#38bdf8"
               className="font-mono tracking-wide"
             >
               {component.label}
             </text>
-            <circle cx={35} cy={55} r={14} fill="#0f172a" stroke="#334155" />
-            <text x={35} y={59} textAnchor="middle" fontSize={9} fill="#f59e0b" fontWeight="bold">
+            <line x1={0} y1={24} x2={width} y2={24} stroke="#334155" strokeWidth={1} />
+
+            {/* Amp Adjustment Dial */}
+            <circle cx={35} cy={75} r={14} fill="#0f172a" stroke="#334155" />
+            <text x={35} y={79} textAnchor="middle" fontSize={9} fill="#f59e0b" fontWeight="bold">
               AMP
             </text>
-            {/* OLR Auxiliary 95-96 Contacts */}
-            <rect x={70} y={35} width={45} height={40} rx={4} fill="#0f172a" stroke="#334155" />
-            <text x={92} y={58} textAnchor="middle" fontSize={9} fill="#94a3b8" fontWeight="bold">
+
+            {/* OLR Auxiliary 95-96 NC Contacts */}
+            <rect x={70} y={65} width={48} height={42} rx={4} fill="#0f172a" stroke="#334155" />
+            <text x={94} y={89} textAnchor="middle" fontSize={9} fill="#94a3b8" fontWeight="bold">
               95-96 NC
             </text>
           </g>
@@ -182,9 +200,10 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
       }
 
       case "POWER_SOURCE": {
-        const { width = 170, height = 60 } = component;
+        const { width = 190, height = 75 } = component;
         return (
           <g transform={`translate(${component.position.x}, ${component.position.y})`}>
+            {/* Base Housing */}
             <rect
               width={width}
               height={height}
@@ -194,9 +213,14 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
               strokeWidth={2}
               className="drop-shadow-md"
             />
+            {/* Top Header Banner */}
+            <path
+              d={`M 0 8 A 8 8 0 0 1 8 0 L ${width - 8} 0 A 8 8 0 0 1 ${width} 8 L ${width} 22 L 0 22 Z`}
+              fill="#1e293b"
+            />
             <text
               x={width / 2}
-              y={16}
+              y={15}
               textAnchor="middle"
               fontSize={10}
               fontWeight="bold"
@@ -205,6 +229,7 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
             >
               {component.label}
             </text>
+            <line x1={0} y1={22} x2={width} y2={22} stroke="#3b82f6" strokeWidth={1} opacity={0.5} />
           </g>
         );
       }
@@ -234,8 +259,8 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
             componentY={component.position.y}
             isConnected={isConnected}
             isHighlighted={isHighlighted}
-            onPointerDown={onTerminalPointerDown}
-            onPointerUp={onTerminalPointerUp}
+            onTerminalPointerDown={onTerminalPointerDown}
+            onTerminalPointerUp={onTerminalPointerUp}
           />
         );
       })}

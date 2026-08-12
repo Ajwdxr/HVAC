@@ -12,7 +12,7 @@ export const PushButton: React.FC<PushButtonProps> = ({
   pressed,
   onPress,
 }) => {
-  const { width = 80, height = 90 } = component;
+  const { width = 95, height = 115 } = component;
   const isStart = component.id.includes("start");
 
   const buttonColor = isStart ? "#22c55e" : "#ef4444";
@@ -35,24 +35,29 @@ export const PushButton: React.FC<PushButtonProps> = ({
         className="drop-shadow-md"
       />
 
-      {/* Label */}
+      {/* Top Header Title Banner */}
+      <path
+        d={`M 0 8 A 8 8 0 0 1 8 0 L ${width - 8} 0 A 8 8 0 0 1 ${width} 8 L ${width} 22 L 0 22 Z`}
+        fill="#0f172a"
+      />
       <text
         x={width / 2}
-        y={16}
+        y={15}
         textAnchor="middle"
         fontSize={10}
         fontWeight="bold"
-        fill="#f8fafc"
+        fill="#38bdf8"
         className="font-mono tracking-wider"
       >
         {component.label}
       </text>
+      <line x1={0} y1={22} x2={width} y2={22} stroke="#334155" strokeWidth={1} />
 
-      {/* Outer Bezel */}
+      {/* Outer Bezel Ring */}
       <circle
         cx={width / 2}
-        cy={52}
-        r={22}
+        cy={70}
+        r={20}
         fill="#0f172a"
         stroke="#334155"
         strokeWidth={2}
@@ -61,20 +66,20 @@ export const PushButton: React.FC<PushButtonProps> = ({
       {/* Spring Loaded Actuator Button Head */}
       <circle
         cx={width / 2}
-        cy={52}
-        r={pressed ? 16 : 18}
+        cy={70}
+        r={pressed ? 15 : 17}
         fill={pressed ? hoverColor : buttonColor}
         stroke="#ffffff"
         strokeWidth={pressed ? 1 : 2}
         className="transition-all duration-150 group-hover:brightness-110 drop-shadow"
       />
 
-      {/* Contact Type Tag (NO / NC) */}
+      {/* Contact Type Label inside button head */}
       <text
         x={width / 2}
-        y={56}
+        y={73.5}
         textAnchor="middle"
-        fontSize={10}
+        fontSize={9}
         fontWeight="bold"
         fill="#ffffff"
         className="font-mono select-none pointer-events-none"

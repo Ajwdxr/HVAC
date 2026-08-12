@@ -15,13 +15,13 @@ export const Timer: React.FC<TimerProps> = ({
   duration,
   running,
 }) => {
-  const { width = 110, height = 115 } = component;
+  const { width = 130, height = 145 } = component;
   const progressPercent = Math.min(100, (elapsed / duration) * 100);
   const remainingMs = Math.max(0, duration - elapsed);
 
   return (
     <g transform={`translate(${component.position.x}, ${component.position.y})`}>
-      {/* Timer Industrial Housing */}
+      {/* Timer Industrial Casing */}
       <rect
         width={width}
         height={height}
@@ -32,24 +32,29 @@ export const Timer: React.FC<TimerProps> = ({
         className="transition-colors duration-300 drop-shadow-md"
       />
 
-      {/* Header Label */}
+      {/* Top Header Title Banner */}
+      <path
+        d={`M 0 8 A 8 8 0 0 1 8 0 L ${width - 8} 0 A 8 8 0 0 1 ${width} 8 L ${width} 24 L 0 24 Z`}
+        fill="#0f172a"
+      />
       <text
         x={width / 2}
-        y={18}
+        y={16}
         textAnchor="middle"
-        fontSize={10}
+        fontSize={11}
         fontWeight="bold"
-        fill="#f8fafc"
+        fill="#38bdf8"
         className="font-mono tracking-wider"
       >
         {component.label}
       </text>
+      <line x1={0} y1={24} x2={width} y2={24} stroke="#334155" strokeWidth={1} />
 
-      {/* Circular Analog Dial Housing */}
+      {/* Circular Analog Countdown Dial */}
       <circle
         cx={width / 2}
-        cy={52}
-        r={24}
+        cy={78}
+        r={22}
         fill="#0f172a"
         stroke="#334155"
         strokeWidth={2}
@@ -58,20 +63,20 @@ export const Timer: React.FC<TimerProps> = ({
       {/* Dial Progress Ring */}
       <circle
         cx={width / 2}
-        cy={52}
-        r={24}
+        cy={78}
+        r={22}
         fill="none"
         stroke="#3b82f6"
         strokeWidth={3}
-        strokeDasharray={`${(progressPercent / 100) * 150}, 150`}
-        transform={`rotate(-90 ${width / 2} 52)`}
+        strokeDasharray={`${(progressPercent / 100) * 138}, 138`}
+        transform={`rotate(-90 ${width / 2} 78)`}
         className="transition-all duration-100"
       />
 
-      {/* Countdown Digital Display */}
+      {/* Countdown Text */}
       <text
         x={width / 2}
-        y={56}
+        y={82}
         textAnchor="middle"
         fontSize={11}
         fontWeight="bold"
@@ -80,21 +85,6 @@ export const Timer: React.FC<TimerProps> = ({
       >
         {formatTime(remainingMs)}
       </text>
-
-      {/* Contact Output Labels (COM-15, NC-16, NO-18) */}
-      <g transform={`translate(15, 82)`}>
-        <rect width={width - 30} height={20} rx={4} fill="#0f172a" />
-        <text
-          x={(width - 30) / 2}
-          y={14}
-          textAnchor="middle"
-          fontSize={9}
-          fill="#94a3b8"
-          className="font-mono"
-        >
-          COM(15) | NC | NO
-        </text>
-      </g>
     </g>
   );
 };
