@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCircuitStore } from "../stores/circuit-store";
 import { CircuitCanvas } from "./circuit/CircuitCanvas";
 import { StatusPanel } from "./circuit/StatusPanel";
 import { Toolbar } from "./circuit/Toolbar";
 import { HintPanel } from "./circuit/HintPanel";
+import { DrawerNav } from "./DrawerNav";
+import { initialStudent } from "../data";
 import { ScreenView } from "../types";
 
 interface StarDeltaSimulatorScreenProps {
@@ -13,6 +15,8 @@ interface StarDeltaSimulatorScreenProps {
 export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> = ({
   onNavigate,
 }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const {
     components,
     wires,
@@ -37,9 +41,19 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
       {/* Top Header Navigation Bar */}
       <header className="flex flex-wrap items-center justify-between gap-4 bg-[#0f172a] border border-slate-800 p-4 rounded-2xl shadow-xl">
         <div className="flex items-center gap-3">
+          {/* Side Menu Drawer Toggle Button */}
+          <button
+            onClick={() => setIsDrawerOpen(true)}
+            className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center justify-center"
+            title="Buka Menu Tepi"
+          >
+            <span className="material-symbols-outlined text-[24px]">menu</span>
+          </button>
+
           <div className="p-2.5 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center">
             <span className="material-symbols-outlined text-[24px]">electric_bolt</span>
           </div>
+
           <div>
             <span className="text-[10px] font-mono font-bold text-blue-400 block tracking-widest uppercase">
               SIMULASI INTERAKTIF TVET LITAR KAWALAN & KUASA
@@ -127,6 +141,14 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
 
       {/* Hint Modal Overlay */}
       <HintPanel hint={activeHint} onClose={() => setActiveHint(null)} />
+
+      {/* Side Menu Drawer (Single Module Focused) */}
+      <DrawerNav
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+        student={initialStudent}
+        onNavigate={onNavigate}
+      />
     </div>
   );
 };
