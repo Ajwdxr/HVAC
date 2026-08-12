@@ -17,182 +17,73 @@ export const DrawerNav: React.FC<DrawerNavProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 flex">
-      <aside className="bg-[#f9f9ff] w-80 max-w-[85vw] h-full shadow-2xl flex flex-col p-4 animate-in slide-in-from-left duration-300 border-r border-[#c2c6d4]">
+    <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity duration-300 flex">
+      <aside className="bg-[#0f172a] text-slate-100 w-80 max-w-[85vw] h-full shadow-2xl flex flex-col p-5 animate-in slide-in-from-left duration-300 border-r border-[#334155]">
         {/* Header User Profile Info */}
-        <div className="flex flex-col p-4 mb-4 bg-[#f2f3fc] rounded-xl border border-[#c2c6d4] relative">
+        <div className="flex flex-col p-4 mb-4 bg-slate-900/90 rounded-2xl border border-[#334155] relative">
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 p-1 rounded-full text-[#727784] hover:bg-[#e7e8f0]"
+            className="absolute top-3 right-3 p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-slate-800 transition"
           >
             <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
           <div className="flex items-center gap-3 mb-3">
-            <img
-              src={student.avatar}
-              alt={student.name}
-              className="w-12 h-12 rounded-full object-cover border-2 border-[#003f87]"
-            />
+            <div className="w-12 h-12 rounded-full bg-blue-600/30 text-blue-400 border-2 border-blue-500 flex items-center justify-center font-bold text-lg">
+              SD
+            </div>
             <div>
-              <h4 className="font-bold text-[16px] text-[#191c21] leading-tight">
-                {student.name}
+              <h4 className="font-bold text-[15px] text-white leading-tight">
+                Simulasi Star-Delta
               </h4>
-              <p className="text-[12px] text-[#424752]">{student.role}</p>
+              <p className="text-[12px] text-slate-400 font-mono">TVET Electrical Lab</p>
             </div>
           </div>
-          <span className="font-mono-tech text-[11px] text-[#003f87] font-bold bg-[#d7e2ff] px-2.5 py-0.5 rounded-full w-fit">
-            ID: {student.id}
+          <span className="font-mono text-[11px] text-blue-300 font-bold bg-blue-500/20 px-3 py-1 rounded-full w-fit border border-blue-500/30">
+            SIMULATOR 3-PHASE
           </span>
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 space-y-1.5 overflow-y-auto pr-1">
-          <button
-            onClick={() => {
-              onNavigate('dashboard');
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-3 bg-[#0056b3] text-[#bbd0ff] rounded-xl hover:bg-[#003f87] hover:text-white transition-all text-left font-medium"
-          >
-            <span className="material-symbols-outlined">dashboard</span>
-            <span className="text-[15px]">Dashboard</span>
-          </button>
-
-          <button
-            onClick={() => {
-              onNavigate('modules');
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-3 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left font-medium"
-          >
-            <span className="material-symbols-outlined">menu_book</span>
-            <span className="text-[15px]">Senarai Modul</span>
-          </button>
-
-          <button
-            onClick={() => {
-              onNavigate('dol-starter');
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-3 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left font-medium"
-          >
-            <span className="material-symbols-outlined">power_settings_new</span>
-            <span className="text-[15px]">Litar Penghidup DOL</span>
-          </button>
-
+        <nav className="flex-1 space-y-2 overflow-y-auto pr-1">
           <button
             onClick={() => {
               onNavigate('star-delta');
               onClose();
             }}
-            className="w-full flex items-center gap-3.5 px-4 py-3 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left font-medium"
+            className="w-full flex items-center gap-3.5 px-4 py-3.5 bg-blue-600 text-white rounded-xl font-mono text-[14px] font-bold shadow-lg shadow-blue-600/30 text-left"
           >
-            <span className="material-symbols-outlined">electric_bolt</span>
-            <span className="text-[15px]">Litar Star-Delta Starter</span>
+            <span className="material-symbols-outlined text-[22px]">electric_bolt</span>
+            <span>Simulasi Star-Delta Starter</span>
+          </button>
+
+          <hr className="my-3 border-slate-800" />
+
+          <button
+            onClick={() => {
+              alert("Prinsip Operasi: Fasa Bintang (Star) mengurangkan arus permulaan motor. Selepas pemasa 5s tamat, kontaktor bertukar ke Fasa Delta secara automatik.");
+              onClose();
+            }}
+            className="w-full flex items-center gap-3.5 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-xl transition-all text-left font-medium"
+          >
+            <span className="material-symbols-outlined text-[20px]">description</span>
+            <span className="text-[14px]">Panduan Pengguna</span>
           </button>
 
           <button
             onClick={() => {
-              onNavigate('simulation');
+              alert("Tetapan Makmal: Kelajuan Pemprosesan [1x], Interlock Keselamatan [Aktif].");
               onClose();
             }}
-            className="w-full flex items-center gap-3.5 px-4 py-3 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left font-medium"
+            className="w-full flex items-center gap-3.5 px-4 py-3 text-slate-300 hover:bg-slate-800 rounded-xl transition-all text-left font-medium"
           >
-            <span className="material-symbols-outlined">precision_manufacturing</span>
-            <span className="text-[15px]">Simulasi Litar & Sistem</span>
-          </button>
-
-          <button
-            onClick={() => {
-              onNavigate('troubleshooting');
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-3 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left font-medium"
-          >
-            <span className="material-symbols-outlined">insights</span>
-            <span className="text-[15px]">Troubleshooting & Multimeter</span>
-          </button>
-
-          <button
-            onClick={() => {
-              onNavigate('wiring');
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-3 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left font-medium"
-          >
-            <span className="material-symbols-outlined">bolt</span>
-            <span className="text-[15px]">Latihan Pendawaian</span>
-          </button>
-
-          <hr className="my-3 border-[#c2c6d4]" />
-
-          <button
-            onClick={() => {
-              alert("Profil Pelajar: TVET-9921 (Ahmad Bin Zulkifli) - Program Sijil Penyejukan & Penyaman Udara.");
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-2.5 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left"
-          >
-            <span className="material-symbols-outlined">account_circle</span>
-            <span className="text-[14px]">Profil Pelajar</span>
-          </button>
-
-          <button
-            onClick={() => {
-              alert("Tetapan Makmal: Audio Kesan Simulasi [Diaktifkan], Kualiti Grafiti 2D/3D [Tinggi].");
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-2.5 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left"
-          >
-            <span className="material-symbols-outlined">settings</span>
-            <span className="text-[14px]">Tetapan Makmal</span>
-          </button>
-
-          <button
-            onClick={() => {
-              alert("Log Aktiviti: Terakhir mengakses Modul 03 pada 18 Oktober 2023, 14:30.");
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-2.5 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left"
-          >
-            <span className="material-symbols-outlined">history</span>
-            <span className="text-[14px]">Log Aktiviti</span>
-          </button>
-
-          <button
-            onClick={() => {
-              alert("Manual Pengguna HVAC Interactive Lab v2.4.0 dilancarkan.");
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-2.5 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left"
-          >
-            <span className="material-symbols-outlined">description</span>
-            <span className="text-[14px]">Manual Pengguna</span>
-          </button>
-
-          <button
-            onClick={() => {
-              alert("Menghantar mesej kepada Pengajar Encik Zulkifli (Lab Coordinator)...");
-              onClose();
-            }}
-            className="w-full flex items-center gap-3.5 px-4 py-2.5 text-[#424752] hover:bg-[#e7e8f0] rounded-xl transition-all text-left"
-          >
-            <span className="material-symbols-outlined">support_agent</span>
-            <span className="text-[14px]">Hubungi Pengajar</span>
+            <span className="material-symbols-outlined text-[20px]">settings</span>
+            <span className="text-[14px]">Tetapan Simulasi</span>
           </button>
         </nav>
 
-        {/* Logout Button */}
-        <button
-          onClick={() => {
-            onNavigate('login');
-            onClose();
-          }}
-          className="mt-auto flex items-center gap-3 px-4 py-3 text-[#ba1a1a] hover:bg-[#ffdad6] rounded-xl transition-all font-semibold"
-        >
-          <span className="material-symbols-outlined">logout</span>
-          <span>Log Keluar</span>
-        </button>
+        <div className="pt-4 border-t border-slate-800 text-center text-xs text-slate-500 font-mono">
+          Star-Delta Simulator v2.5
+        </div>
       </aside>
 
       <div className="flex-1" onClick={onClose} />

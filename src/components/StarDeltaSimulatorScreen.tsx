@@ -37,19 +37,15 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
       {/* Top Header Navigation Bar */}
       <header className="flex flex-wrap items-center justify-between gap-4 bg-[#0f172a] border border-slate-800 p-4 rounded-2xl shadow-xl">
         <div className="flex items-center gap-3">
-          <button
-            onClick={() => onNavigate("modules")}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
-            title="Kembali ke Senarai Modul"
-          >
-            <span className="material-symbols-outlined text-[20px]">arrow_back</span>
-          </button>
+          <div className="p-2.5 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center">
+            <span className="material-symbols-outlined text-[24px]">electric_bolt</span>
+          </div>
           <div>
             <span className="text-[10px] font-mono font-bold text-blue-400 block tracking-widest uppercase">
-              MODUL SIMULASI TVET HVAC #05
+              SIMULASI INTERAKTIF TVET LITAR KAWALAN & KUASA
             </span>
             <h1 className="text-base sm:text-lg font-bold text-white leading-tight font-mono">
-              Simulasi Interaktif Litar Penghidup Bintang-Delta (Star-Delta Starter)
+              Penghidup Motor Bintang-Delta (Star-Delta Starter Simulator)
             </h1>
           </div>
         </div>
