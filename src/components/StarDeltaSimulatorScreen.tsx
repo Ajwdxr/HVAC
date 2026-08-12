@@ -68,6 +68,24 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
 
         {/* Quick Info Badges */}
         <div className="flex items-center gap-2">
+          {/* LED Connection Indicator Badge */}
+          <div
+            className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-mono font-bold border transition-all ${
+              validationResult.valid
+                ? "bg-emerald-950/80 text-emerald-300 border-emerald-500/60 shadow-[0_0_10px_rgba(34,197,94,0.3)]"
+                : "bg-slate-800 text-amber-300 border-slate-700"
+            }`}
+          >
+            <span
+              className={`w-2.5 h-2.5 rounded-full ${
+                validationResult.valid
+                  ? "bg-emerald-400 animate-ping"
+                  : "bg-amber-400"
+              }`}
+            ></span>
+            <span>{validationResult.valid ? "LED: BETUL 🟢" : "LED: CHK 🔴"}</span>
+          </div>
+
           <div className="bg-blue-500/10 border border-blue-500/30 text-blue-300 px-3 py-1 rounded-xl text-xs font-mono font-bold">
             SKOR: {score} / 100
           </div>

@@ -55,6 +55,41 @@ export const StatusPanel: React.FC<StatusPanelProps> = ({
         </div>
       </div>
 
+      {/* Connection Status LED Indicator Light */}
+      <div
+        className={`p-2.5 rounded-lg border flex items-center justify-between font-mono text-xs font-bold transition-all ${
+          validation.valid
+            ? "bg-emerald-950/60 text-emerald-300 border-emerald-500/60 shadow-lg shadow-emerald-950/50"
+            : "bg-slate-900 text-amber-400 border-slate-800"
+        }`}
+      >
+        <div className="flex items-center gap-2.5">
+          {/* Animated LED Light */}
+          <div className="relative flex items-center justify-center w-3.5 h-3.5">
+            <span
+              className={`absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                validation.valid ? "bg-emerald-400 animate-ping" : "bg-amber-400/50"
+              }`}
+            ></span>
+            <span
+              className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
+                validation.valid
+                  ? "bg-emerald-400 shadow-[0_0_8px_#22c55e]"
+                  : "bg-amber-500"
+              }`}
+            ></span>
+          </div>
+          <span>
+            {validation.valid
+              ? "LED SAMBUNGAN: BETUL & MENYALA 🟢"
+              : "LED SAMBUNGAN: CHK CONNECTIONS 🔴"}
+          </span>
+        </div>
+        <span className="text-[11px] opacity-80">
+          {validation.satisfiedCount}/{validation.totalRulesCount} OK
+        </span>
+      </div>
+
       {/* Machine State Display */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {/* Machine Status */}

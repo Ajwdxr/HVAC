@@ -62,6 +62,36 @@ export const Terminal: React.FC<TerminalProps> = ({
         className="group-hover:fill-blue-500/20 transition-all"
       />
 
+      {/* Connection Status LED Indicator Light */}
+      <g transform="translate(10, -9)">
+        {isConnected ? (
+          <>
+            {/* Glowing Green LED Lens Halo */}
+            <circle
+              r={5}
+              fill="#22c55e"
+              opacity={0.6}
+              className="animate-pulse"
+            />
+            {/* Bright Green LED Light */}
+            <circle
+              r={3.5}
+              fill="#22c55e"
+              stroke="#86efac"
+              strokeWidth={1}
+            />
+          </>
+        ) : (
+          /* Off Dark LED Socket */
+          <circle
+            r={3}
+            fill="#0f172a"
+            stroke="#334155"
+            strokeWidth={1}
+          />
+        )}
+      </g>
+
       {/* Terminal Screw Head Base */}
       <circle
         r={7}
