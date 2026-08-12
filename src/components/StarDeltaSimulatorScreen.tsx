@@ -26,6 +26,7 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
     score,
     activeHint,
     setSelectedWireId,
+    updateComponentPosition,
     addWire,
     removeWire,
     clearAllWires,
@@ -102,6 +103,7 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
             onAddWire={addWire}
             onSelectWire={setSelectedWireId}
             onDeleteWire={removeWire}
+            onUpdateComponentPosition={updateComponentPosition}
             onPushStart={() => dispatchAction({ type: "START" })}
             onPushStop={() => dispatchAction({ type: "STOP" })}
           />

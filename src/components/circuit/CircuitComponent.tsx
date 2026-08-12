@@ -14,6 +14,7 @@ interface CircuitComponentProps {
   highlightedTerminals?: string[];
   onTerminalPointerDown: (e: React.PointerEvent, terminalId: string) => void;
   onTerminalPointerUp: (e: React.PointerEvent, terminalId: string) => void;
+  onComponentPointerDown?: (e: React.PointerEvent, componentId: string) => void;
   onPushStart?: () => void;
   onPushStop?: () => void;
 }
@@ -25,6 +26,7 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
   highlightedTerminals = [],
   onTerminalPointerDown,
   onTerminalPointerUp,
+  onComponentPointerDown,
   onPushStart,
   onPushStop,
 }) => {
@@ -239,8 +241,19 @@ export const CircuitComponent: React.FC<CircuitComponentProps> = ({
     }
   };
 
+  const isDesign = state.mode === "DESIGN";
+
   return (
-    <g className="circuit-component-group">
+    <g
+      className={`circuit-component-group ${
+        isDesign ? "cursor-grab active:cursor-grabbing" : ""
+      }`}
+      onPointerDown={(e) => {
+        if (isDesign && typeof onComponentPointerDown === "function") {
+          onComponentPointerDown(e, component.id);
+        }
+      }}
+    >
       {/* Component Main Graphic */}
       {renderGraphic()}
 

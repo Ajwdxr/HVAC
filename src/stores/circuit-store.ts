@@ -24,7 +24,7 @@ export interface DraftWire {
 }
 
 export function useCircuitStore() {
-  const [components] = useState<CircuitComponent[]>(
+  const [components, setComponents] = useState<CircuitComponent[]>(
     starDeltaCircuitDefinition.components
   );
   const [wires, setWires] = useState<Wire[]>([]);
@@ -50,7 +50,7 @@ export function useCircuitStore() {
   const [activeHint, setActiveHint] = useState<Hint | null>(null);
   const [currentHintLevel, setCurrentHintLevel] = useState<number>(0);
 
-  // Validate circuit whenever wires update
+  // Validate circuit whenever wires or components update
   useEffect(() => {
     const result = validateCircuit(
       components,
@@ -97,6 +97,13 @@ export function useCircuitStore() {
     animationFrameId = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(animationFrameId);
   }, [simulatorState.timer.running, simulatorState.machine]);
+
+  // Update position of a dragged component
+  const updateComponentPosition = useCallback((id: string, x: number, y: number) => {
+    setComponents((prev) =>
+      prev.map((c) => (c.id === id ? { ...c, position: { x, y } } : c))
+    );
+  }, []);
 
   // Add a new wire
   const addWire = useCallback(
@@ -155,6 +162,7 @@ export function useCircuitStore() {
   const clearAllWires = useCallback(() => {
     setWires([]);
     setSelectedWireId(null);
+    setComponents(starDeltaCircuitDefinition.components);
     setSimulatorState(initialSimulatorState());
   }, []);
 
@@ -206,6 +214,7 @@ export function useCircuitStore() {
     currentHintLevel,
     setDraftWire,
     setSelectedWireId,
+    updateComponentPosition,
     addWire,
     removeWire,
     clearAllWires,

@@ -22,6 +22,7 @@ interface CircuitCanvasProps {
   onAddWire: (fromId: string, toId: string) => void;
   onSelectWire: (wireId: string | null) => void;
   onDeleteWire: (wireId: string) => void;
+  onUpdateComponentPosition?: (id: string, x: number, y: number) => void;
   onPushStart?: () => void;
   onPushStop?: () => void;
 }
@@ -35,6 +36,7 @@ export const CircuitCanvas: React.FC<CircuitCanvasProps> = ({
   onAddWire,
   onSelectWire,
   onDeleteWire,
+  onUpdateComponentPosition,
   onPushStart,
   onPushStop,
 }) => {
@@ -48,6 +50,13 @@ export const CircuitCanvas: React.FC<CircuitCanvasProps> = ({
 
   // Active wire drawing state
   const [draftWire, setDraftWire] = useState<DraftWire | null>(null);
+
+  // Active component dragging state
+  const [dragCompState, setDragCompState] = useState<{
+    compId: string;
+    offsetX: number;
+    offsetY: number;
+  } | null>(null);
 
   // Convert client pointer coordinates to SVG coordinate space
   const getSvgCoordinates = useCallback(
@@ -91,11 +100,33 @@ export const CircuitCanvas: React.FC<CircuitCanvasProps> = ({
     setDraftWire(null);
   };
 
+  // Component Pointer Down: Start component dragging in Design mode
+  const handleComponentPointerDown = (
+    e: React.PointerEvent,
+    componentId: string
+  ) => {
+    if (state.mode !== "DESIGN") return;
+    const coords = getSvgCoordinates(e);
+    const comp = components.find((c) => c.id === componentId);
+    if (!comp) return;
+
+    setDragCompState({
+      compId: componentId,
+      offsetX: coords.x - comp.position.x,
+      offsetY: coords.y - comp.position.y,
+    });
+  };
+
   // Canvas Pointer Move
   const handlePointerMove = (e: React.PointerEvent) => {
+    const coords = getSvgCoordinates(e);
+
     if (draftWire) {
-      const coords = getSvgCoordinates(e);
       setDraftWire({ ...draftWire, currentX: coords.x, currentY: coords.y });
+    } else if (dragCompState && onUpdateComponentPosition) {
+      const newX = Math.max(10, Math.round(coords.x - dragCompState.offsetX));
+      const newY = Math.max(10, Math.round(coords.y - dragCompState.offsetY));
+      onUpdateComponentPosition(dragCompState.compId, newX, newY);
     } else if (isPanning) {
       setPan({
         x: e.clientX - panStart.x,
@@ -104,10 +135,13 @@ export const CircuitCanvas: React.FC<CircuitCanvasProps> = ({
     }
   };
 
-  // Canvas Pointer Up: Cancel draft wire or end pan
+  // Canvas Pointer Up: Cancel draft wire, release component drag, or end pan
   const handlePointerUp = () => {
     if (draftWire) {
       setDraftWire(null);
+    }
+    if (dragCompState) {
+      setDragCompState(null);
     }
     if (isPanning) {
       setIsPanning(false);
@@ -272,6 +306,7 @@ export const CircuitCanvas: React.FC<CircuitCanvasProps> = ({
                 highlightedTerminals={highlightedTerminals}
                 onTerminalPointerDown={handleTerminalPointerDown}
                 onTerminalPointerUp={handleTerminalPointerUp}
+                onComponentPointerDown={handleComponentPointerDown}
                 onPushStart={onPushStart}
                 onPushStop={onPushStop}
               />
