@@ -7,6 +7,7 @@ interface ToolbarProps {
   selectedWireId: string | null;
   speedMultiplier: number;
   onSetMode: (mode: ApplicationMode) => void;
+  onAutoConnect?: () => void;
   onReset: () => void;
   onDeleteSelectedWire: () => void;
   onRequestHint: () => void;
@@ -19,6 +20,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   selectedWireId,
   speedMultiplier,
   onSetMode,
+  onAutoConnect,
   onReset,
   onDeleteSelectedWire,
   onRequestHint,
@@ -42,15 +44,18 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
         <button
           onClick={() => onSetMode("SIMULATION")}
-          disabled={!isValid}
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold font-mono transition ${
             mode === "SIMULATION"
               ? "bg-emerald-500 text-slate-950 shadow"
               : isValid
-              ? "text-slate-300 hover:text-white"
-              : "text-slate-600 opacity-50 cursor-not-allowed"
+              ? "bg-slate-800 text-emerald-400 hover:bg-slate-700"
+              : "bg-slate-800/80 text-amber-300 hover:bg-slate-700"
           }`}
-          title={!isValid ? "Lengkapkan litar 100% untuk buka Mod Simulasi" : "Masuk Mod Simulasi"}
+          title={
+            !isValid
+              ? "Tekan untuk menyambung litar automatik & terus uji Simulasi"
+              : "Masuk Mod Simulasi"
+          }
         >
           <span className="material-symbols-outlined text-[16px]">precision_manufacturing</span>
           SIMULATION MODE {!isValid && "🔒"}
@@ -59,6 +64,16 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 
       {/* Action Buttons */}
       <div className="flex items-center gap-2 flex-wrap">
+        {/* Auto-Connect Wires Button for Instant Simulation */}
+        <button
+          onClick={onAutoConnect}
+          className="flex items-center gap-1 bg-emerald-600/30 hover:bg-emerald-600/40 text-emerald-300 border border-emerald-500/40 px-3 py-1.5 rounded-lg text-xs font-bold font-mono transition shadow-sm"
+          title="Sambung semua wayar litar secara automatik 100%"
+        >
+          <span className="material-symbols-outlined text-[16px]">bolt</span>
+          AUTO-WIRE (SAMBUNG 100%)
+        </button>
+
         {/* Reset Wires */}
         <button
           onClick={onReset}

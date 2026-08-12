@@ -28,6 +28,7 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
     setSelectedWireId,
     updateComponentPosition,
     addWire,
+    autoConnectCircuit,
     removeWire,
     clearAllWires,
     dispatchAction,
@@ -86,6 +87,7 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
             selectedWireId={selectedWireId}
             speedMultiplier={simulatorState.speedMultiplier}
             onSetMode={setMode}
+            onAutoConnect={autoConnectCircuit}
             onReset={clearAllWires}
             onDeleteSelectedWire={() => {
               if (selectedWireId) removeWire(selectedWireId);

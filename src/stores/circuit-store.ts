@@ -154,6 +154,35 @@ export function useCircuitStore() {
     [wires, components]
   );
 
+  // Auto-connect full circuit automatically for instant simulation testing
+  const autoConnectCircuit = useCallback(() => {
+    const autoWires: Wire[] = starDeltaCircuitDefinition.rules.map((rule, idx) => {
+      let term1, term2;
+      for (const comp of starDeltaCircuitDefinition.components) {
+        for (const t of comp.terminals) {
+          if (t.id === rule.from) term1 = t;
+          if (t.id === rule.to) term2 = t;
+        }
+      }
+      return {
+        id: `auto-wire-${idx}-${Date.now()}`,
+        from: rule.from,
+        to: rule.to,
+        active: false,
+        valid: true,
+        color: getWireColor(term1, term2),
+      };
+    });
+
+    setWires(autoWires);
+    const val = validateCircuit(
+      components,
+      autoWires,
+      starDeltaCircuitDefinition.rules
+    );
+    setValidationResult(val);
+  }, [components]);
+
   const removeWire = useCallback((wireId: string) => {
     setWires((prev) => prev.filter((w) => w.id !== wireId));
     setSelectedWireId(null);
@@ -173,9 +202,23 @@ export function useCircuitStore() {
   const setMode = useCallback(
     (mode: ApplicationMode) => {
       if (mode === "SIMULATION" && !validationResult.valid) {
-        alert("Litar belum lengkap! Lengkapkan penyambungan wayar sehingga 100% untuk masuk ke Mod Simulasi.");
+        const confirmAuto = window.confirm(
+          "Litar belum lengkap (Sambungan wayar belum 100%).\n\nAdakah anda ingin menyambung semua wayar secara automatik (Auto-Wire) untuk terus menguji Mod Simulasi?"
+        );
+        if (confirmAuto) {
+          autoConnectCircuit();
+          setSimulatorState((prev) => ({
+            ...prev,
+            mode: "SIMULATION",
+            machine: "OFF",
+            contactors: { KM1: false, KM2: false, KM3: false },
+            motor: { running: false, mode: "STOPPED", speed: 0 },
+            lamps: { power: false, star: false, delta: false, fault: false },
+          }));
+        }
         return;
       }
+
       setSimulatorState((prev) => ({
         ...prev,
         mode,
@@ -185,7 +228,7 @@ export function useCircuitStore() {
         lamps: { power: false, star: false, delta: false, fault: false },
       }));
     },
-    [validationResult.valid]
+    [validationResult.valid, autoConnectCircuit]
   );
 
   const requestNextHint = useCallback(() => {
@@ -216,6 +259,7 @@ export function useCircuitStore() {
     setSelectedWireId,
     updateComponentPosition,
     addWire,
+    autoConnectCircuit,
     removeWire,
     clearAllWires,
     dispatchAction,
