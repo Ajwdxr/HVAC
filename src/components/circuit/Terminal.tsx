@@ -7,8 +7,8 @@ interface TerminalProps {
   componentY: number;
   isConnected: boolean;
   isHighlighted?: boolean;
-  onPointerDown: (e: React.PointerEvent, terminalId: string) => void;
-  onPointerUp: (e: React.PointerEvent, terminalId: string) => void;
+  onTerminalPointerDown?: (e: React.PointerEvent, terminalId: string) => void;
+  onTerminalPointerUp?: (e: React.PointerEvent, terminalId: string) => void;
 }
 
 export const Terminal: React.FC<TerminalProps> = ({
@@ -17,8 +17,8 @@ export const Terminal: React.FC<TerminalProps> = ({
   componentY,
   isConnected,
   isHighlighted,
-  onPointerDown,
-  onPointerUp,
+  onTerminalPointerDown,
+  onTerminalPointerUp,
 }) => {
   const absX = componentX + terminal.x;
   const absY = componentY + terminal.y;
@@ -44,11 +44,15 @@ export const Terminal: React.FC<TerminalProps> = ({
       transform={`translate(${absX}, ${absY})`}
       onPointerDown={(e) => {
         e.stopPropagation();
-        onPointerDown(e, terminal.id);
+        if (typeof onTerminalPointerDown === "function") {
+          onTerminalPointerDown(e, terminal.id);
+        }
       }}
       onPointerUp={(e) => {
         e.stopPropagation();
-        onPointerUp(e, terminal.id);
+        if (typeof onTerminalPointerUp === "function") {
+          onTerminalPointerUp(e, terminal.id);
+        }
       }}
     >
       {/* Outer Magnetic Ring (Hover expansion) */}
