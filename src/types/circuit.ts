@@ -104,6 +104,7 @@ export interface SimulatorState {
     fault: boolean;
   };
   speedMultiplier: number;
+  viewMode: "REAL" | "VECTOR";
   faultMessage?: string;
 }
 

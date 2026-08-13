@@ -8,6 +8,7 @@ export type MachineAction =
   | { type: "RESET_OVERLOAD" }
   | { type: "TIMER_EXPIRED" }
   | { type: "TRANSITION_COMPLETE" }
+  | { type: "SET_VIEW_MODE"; viewMode: "REAL" | "VECTOR" }
   | { type: "TICK"; deltaTime: number };
 
 export function initialSimulatorState(): SimulatorState {
@@ -41,6 +42,7 @@ export function initialSimulatorState(): SimulatorState {
       fault: false,
     },
     speedMultiplier: 1,
+    viewMode: "REAL",
   };
 }
 
@@ -218,6 +220,13 @@ export function starDeltaReducer(
           delta: true,
           fault: false,
         },
+      };
+    }
+
+    case "SET_VIEW_MODE": {
+      return {
+        ...state,
+        viewMode: action.viewMode,
       };
     }
 

@@ -6,12 +6,14 @@ interface ToolbarProps {
   isValid: boolean;
   selectedWireId: string | null;
   speedMultiplier: number;
+  viewMode?: "REAL" | "VECTOR";
   onSetMode: (mode: ApplicationMode) => void;
   onAutoConnect?: () => void;
   onReset: () => void;
   onDeleteSelectedWire: () => void;
   onRequestHint: () => void;
   onSetSpeed: (speed: number) => void;
+  onSetViewMode?: (viewMode: "REAL" | "VECTOR") => void;
 }
 
 export const Toolbar: React.FC<ToolbarProps> = ({
@@ -19,47 +21,81 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   isValid,
   selectedWireId,
   speedMultiplier,
+  viewMode = "REAL",
   onSetMode,
   onAutoConnect,
   onReset,
   onDeleteSelectedWire,
   onRequestHint,
   onSetSpeed,
+  onSetViewMode,
 }) => {
   return (
     <div className="bg-[#0f1016] border border-[#f59e0b]/30 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3 shadow-lg select-none">
       {/* Mode Switcher Tabs */}
-      <div className="flex items-center bg-[#090a0f] p-1 rounded-lg border border-slate-800">
-        <button
-          onClick={() => onSetMode("DESIGN")}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-black font-mono transition ${
-            mode === "DESIGN"
-              ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/20"
-              : "text-slate-400 hover:text-slate-200"
-          }`}
-        >
-          <span className="material-symbols-outlined text-[16px]">edit_note</span>
-          DESIGN MODE
-        </button>
+      <div className="flex items-center gap-2">
+        <div className="flex items-center bg-[#090a0f] p-1 rounded-lg border border-slate-800">
+          <button
+            onClick={() => onSetMode("DESIGN")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-black font-mono transition ${
+              mode === "DESIGN"
+                ? "bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 shadow-md shadow-amber-500/20"
+                : "text-slate-400 hover:text-slate-200"
+            }`}
+          >
+            <span className="material-symbols-outlined text-[16px]">edit_note</span>
+            DESIGN MODE
+          </button>
 
-        <button
-          onClick={() => onSetMode("SIMULATION")}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-black font-mono transition ${
-            mode === "SIMULATION"
-              ? "bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20"
-              : isValid
-              ? "bg-slate-900 text-emerald-400 hover:bg-slate-800"
-              : "bg-slate-900 text-amber-300 hover:bg-slate-800 border border-amber-500/30"
-          }`}
-          title={
-            !isValid
-              ? "Tekan untuk menyambung litar automatik & terus uji Simulasi"
-              : "Masuk Mod Simulasi"
-          }
-        >
-          <span className="material-symbols-outlined text-[16px]">precision_manufacturing</span>
-          SIMULATION MODE {!isValid && "🔒"}
-        </button>
+          <button
+            onClick={() => onSetMode("SIMULATION")}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-black font-mono transition ${
+              mode === "SIMULATION"
+                ? "bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20"
+                : isValid
+                ? "bg-slate-900 text-emerald-400 hover:bg-slate-800"
+                : "bg-slate-900 text-amber-300 hover:bg-slate-800 border border-amber-500/30"
+            }`}
+            title={
+              !isValid
+                ? "Tekan untuk menyambung litar automatik & terus uji Simulasi"
+                : "Masuk Mod Simulasi"
+            }
+          >
+            <span className="material-symbols-outlined text-[16px]">precision_manufacturing</span>
+            SIMULATION MODE {!isValid && "🔒"}
+          </button>
+        </div>
+
+        {/* View Mode Toggle: Real Component vs Vector Schematic */}
+        {onSetViewMode && (
+          <div className="flex items-center bg-[#090a0f] p-1 rounded-lg border border-amber-500/40">
+            <button
+              onClick={() => onSetViewMode("REAL")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-black font-mono transition ${
+                viewMode === "REAL"
+                  ? "bg-amber-500 text-slate-950 shadow-md shadow-amber-500/20"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
+              title="Guna gambar real component berdefinisi tinggi"
+            >
+              <span className="material-symbols-outlined text-[16px]">photo_camera</span>
+              GAMBAR REAL COMPONENT
+            </button>
+            <button
+              onClick={() => onSetViewMode("VECTOR")}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-black font-mono transition ${
+                viewMode === "VECTOR"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                  : "text-slate-400 hover:text-slate-200"
+              }`}
+              title="Tukar ke mod vektor skematik"
+            >
+              <span className="material-symbols-outlined text-[16px]">schema</span>
+              VEKTOR SKEMATIK
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Action Buttons */}

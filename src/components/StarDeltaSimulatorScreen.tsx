@@ -112,6 +112,7 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
             isValid={validationResult.valid}
             selectedWireId={selectedWireId}
             speedMultiplier={simulatorState.speedMultiplier}
+            viewMode={simulatorState.viewMode}
             onSetMode={setMode}
             onAutoConnect={autoConnectCircuit}
             onReset={clearAllWires}
@@ -120,6 +121,7 @@ export const StarDeltaSimulatorScreen: React.FC<StarDeltaSimulatorScreenProps> =
             }}
             onRequestHint={requestNextHint}
             onSetSpeed={setSpeedMultiplier}
+            onSetViewMode={(v) => dispatchAction({ type: "SET_VIEW_MODE", viewMode: v })}
           />
 
           <CircuitCanvas
